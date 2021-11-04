@@ -20,6 +20,11 @@ import LoadingIndicator from '../../components/LoadingIndicator';
 import { formatDate } from '../../helpers/DateHelpers';
 import NavigationConstants from '../../constants/NavigationConstants';
 import { SCREEN_HEIGHT } from '../../helpers/ScreenHelpers';
+import { Location } from '../../interfaces/Location';
+
+type WeatherItemProps = {
+  item: Location
+}
 
 const Home = () => {
   const { navigate } = useNavigation();
@@ -38,7 +43,7 @@ const Home = () => {
     setHideResults(false);
     setLocationValue(text);
     const result = await request<Location[]>(WeatherController.fetchLocations, {
-      text,
+      text, limit: 10,
     });
     setLocations(result);
   }, []);
@@ -59,7 +64,7 @@ const Home = () => {
     navigate(NavigationConstants.results, { location, date });
   };
 
-  const WeatherItem = ({ item }) => (
+  const WeatherItem : React.FC<WeatherItemProps> = ({ item }) => (
     <TouchableOpacity
       onPress={() => handleItemPress(item)}
       style={{ marginVertical: 5, padding: 5 }}
@@ -94,8 +99,10 @@ const Home = () => {
                   hideResults={hideResults}
                   placeholder={strings.home.location}
                   flatListProps={{
-                    keyExtractor: (_, idx) => `${idx}`,
+                    keyboardShouldPersistTaps: 'always',
+                    keyExtractor: (_, id) => `${id}`,
                     renderItem: isLoading ? LoadingIndicator : WeatherItem,
+                    contentContainerStyle: { maxHeight: SCREEN_HEIGHT * 0.5 },
                   }}
                   style={{ padding: 10 }}
                   inputContainerStyle={[

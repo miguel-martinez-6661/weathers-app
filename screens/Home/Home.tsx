@@ -49,7 +49,7 @@ const Home = () => {
     setDate(newDate);
   };
 
-  const handleItemPress = item => {
+  const handleItemPress = (item) => {
     setLocationValue(item.title);
     setLocation(item);
     setHideResults(true);
@@ -132,15 +132,17 @@ const Home = () => {
             }}
           />
         )}
-        <TouchableOpacity
-          disabled={!location}
-          style={[styles.button, { backgroundColor: colors.primary }]}
-          onPress={onSearch}
-        >
-          <TextCustom weight={FontWeight.semibold} color={colors.textOnPrimary}>
-            {strings.general.search}
-          </TextCustom>
-        </TouchableOpacity>
+        {!!hideResults && (
+          <TouchableOpacity
+            disabled={!location}
+            style={[styles.button, { backgroundColor: colors.primary }]}
+            onPress={onSearch}
+          >
+            <TextCustom weight={FontWeight.semibold} color={colors.textOnPrimary}>
+              {strings.general.search}
+            </TextCustom>
+          </TouchableOpacity>
+        )}
       </KeyboardAvoidingView>
     </ViewCustom>
   );

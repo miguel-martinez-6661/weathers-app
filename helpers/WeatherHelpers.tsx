@@ -27,6 +27,4 @@ const weatherIcons = {
 
 const getIcon = (type: WeatherStates) => weatherIcons[type];
 
-export {
-  getIcon,
-};
+export { getIcon };

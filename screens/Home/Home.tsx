@@ -2,7 +2,9 @@ import React, { useCallback, useRef, useState } from 'react';
 import {
   KeyboardAvoidingView,
   Platform,
-  TextInput, TouchableOpacity, View,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from 'react-native';
 import Autocomplete from 'react-native-autocomplete-input';
 import { useTheme, useNavigation } from '@react-navigation/native';
@@ -35,20 +37,19 @@ const Home = () => {
   const onChange = useCallback(async (text: string) => {
     setHideResults(false);
     setLocationValue(text);
-    const result = await request<Location[]>(
-      WeatherController.fetchLocations,
-      { text },
-    );
+    const result = await request<Location[]>(WeatherController.fetchLocations, {
+      text,
+    });
     setLocations(result);
   }, []);
 
-  const onChangeDate = (newDate : Date) => {
+  const onChangeDate = (newDate: Date) => {
     datePicker?.current?.blur?.();
     setShowDatePicker(false);
     setDate(newDate);
   };
 
-  const handleItemPress = (item) => {
+  const handleItemPress = item => {
     setLocationValue(item.title);
     setLocation(item);
     setHideResults(true);
@@ -63,9 +64,7 @@ const Home = () => {
       onPress={() => handleItemPress(item)}
       style={{ marginVertical: 5, padding: 5 }}
     >
-      <TextCustom weight={FontWeight.semibold}>
-        {`${item.title}`}
-      </TextCustom>
+      <TextCustom weight={FontWeight.semibold}>{`${item.title}`}</TextCustom>
     </TouchableOpacity>
   );
 
@@ -83,10 +82,7 @@ const Home = () => {
         </View>
         <View style={{ width: '100%' }}>
           <View style={{ marginBottom: 10, zIndex: 2 }}>
-            <TextCustom
-              size={FontSize.regular}
-              weight={FontWeight.semibold}
-            >
+            <TextCustom size={FontSize.regular} weight={FontWeight.semibold}>
               {`${strings.home.location}:`}
             </TextCustom>
             <View>
@@ -102,16 +98,16 @@ const Home = () => {
                     renderItem: isLoading ? LoadingIndicator : WeatherItem,
                   }}
                   style={{ padding: 10 }}
-                  inputContainerStyle={[styles.input, { padding: 0, borderColor: colors.border }]}
+                  inputContainerStyle={[
+                    styles.input,
+                    { padding: 0, borderColor: colors.border },
+                  ]}
                 />
               </View>
             </View>
           </View>
           <View style={{ marginTop: '15%' }}>
-            <TextCustom
-              size={FontSize.regular}
-              weight={FontWeight.semibold}
-            >
+            <TextCustom size={FontSize.regular} weight={FontWeight.semibold}>
               {`${strings.home.date}:`}
             </TextCustom>
             <TextInput
@@ -124,17 +120,17 @@ const Home = () => {
           </View>
         </View>
         {showDatePicker && (
-        <DatePicker
-          modal
-          open={showDatePicker}
-          date={date}
-          mode="date"
-          onConfirm={onChangeDate}
-          onCancel={() => {
-            setShowDatePicker(false);
-            datePicker.current.blur();
-          }}
-        />
+          <DatePicker
+            modal
+            open={showDatePicker}
+            date={date}
+            mode="date"
+            onConfirm={onChangeDate}
+            onCancel={() => {
+              setShowDatePicker(false);
+              datePicker.current.blur();
+            }}
+          />
         )}
         <TouchableOpacity
           disabled={!location}

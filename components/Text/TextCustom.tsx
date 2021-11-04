@@ -19,19 +19,19 @@ type TextCustomProps = {
   weight?: FontWeight;
   size?: FontSize;
   color?: string;
-}
+};
 
 const TextCustom: React.FC<TextCustomProps> = ({
-  children, weight, size, color,
+  children,
+  weight,
+  size,
+  color,
 }) => {
   const { colors } = useTheme();
 
   return (
-    <Text style={[
-      styles[weight],
-      styles[size],
-      { color: color || colors.text },
-    ]}
+    <Text
+      style={[styles[weight], styles[size], { color: color || colors.text }]}
     >
       {children}
     </Text>

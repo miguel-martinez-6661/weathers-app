@@ -9,7 +9,9 @@ const App = () => {
 
   return (
     <NavigationContainer theme={theme[scheme]}>
-      <StatusBar barStyle={scheme === 'dark' ? 'light-content' : 'dark-content'} />
+      <StatusBar
+        barStyle={scheme === 'dark' ? 'light-content' : 'dark-content'}
+      />
       <RootNavigator />
     </NavigationContainer>
   );

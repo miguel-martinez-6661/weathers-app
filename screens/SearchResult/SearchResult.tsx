@@ -27,7 +27,7 @@ const SearchResult = () => {
 
   const search = async () => {
     const weathers = [];
-    nextFiveDays?.map(async (d) => {
+    nextFiveDays?.map(async d => {
       const result = await request<Weather[]>(
         WeatherController.fetchLocationDay,
         {
@@ -46,10 +46,12 @@ const SearchResult = () => {
   }, []);
 
   return (
-    <ViewCustom styles={{ flex: 1, justifyContent: 'flex-start', width: '100%' }}>
+    <ViewCustom
+      styles={{ flex: 1, justifyContent: 'flex-start', width: '100%' }}
+    >
       <FlatList
         data={data}
-        keyExtractor={(item) => `${item.id}${item.applicable_date}`}
+        keyExtractor={item => `${item.id}${item.applicable_date}`}
         style={{ width: '100%' }}
         renderItem={({ item }) => {
           const Icon = getIcon(item.weather_state_abbr);

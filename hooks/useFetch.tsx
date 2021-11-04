@@ -5,7 +5,7 @@ const useFetch = () => {
   const [errors, setErrors] = useState();
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  async function request<T>(query:Function, params:Object): Promise<T> {
+  async function request<T>(query: Function, params: Object): Promise<T> {
     setIsLoading(true);
     try {
       const results = await query(params);

@@ -16,3 +16,12 @@
  
  android: 
  > npm run android
+
+ ## ESLint
+> npx eslint
+
+ ## Prettier
+> npx prettier --write .
+ 
+Recomendation: You should have ESLint installed globally
+
